@@ -27,14 +27,14 @@ module TicTacToe
       end
     end
     
-    def self.name_to_index( name )
+    def self.name_to_index( name )# Receives "b2" and returns 4
       name =~ /([a-cA-C])(\d)/
       y = $1.ord - 'a'.ord
       x = $2.to_i - 1
       x + y * 3
     end
     
-    def self.index_to_name( index )
+    def self.index_to_name( index ) # Receives the index, like 4 and returns "b2"
       if index >= 6
         "c" + (index - 5).to_s  #  0     1    2    3    4    5    6    7    8
       elsif index >= 3          #  a1    a2   a3   b1   b2   b3   c1   c2   c3
@@ -93,10 +93,6 @@ module TicTacToe
       false
     end
     
-    def to_s
-      @squares.join
-    end
-
     BOARD =<<EOS
 
   +---+---+---+
@@ -109,7 +105,7 @@ c | 6 | 7 | 8 |
     1   2   3
 
 EOS
-    def draw_board
+    def to_s
       BOARD.gsub(/(\d)(?= \|)/) { |i| @squares[i.to_i] }
     end
 
@@ -136,7 +132,7 @@ end
 module TicTacToe
   class HumanPlayer < Player
     def move( board )
-      print board.draw_board 
+      print board
       
       moves = board.moves
       print "Your move?  (format: b3)  "
@@ -149,7 +145,7 @@ module TicTacToe
     end
     
     def finish( final_board )
-      print final_board.draw_board 
+      print final_board
       
       if final_board.won? == @mark
         print "Congratulations, you win.\n\n"
