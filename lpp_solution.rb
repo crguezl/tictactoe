@@ -27,21 +27,17 @@ module TicTacToe
       end
     end
     
+    MOVES = %w{a1    a2   a3   b1   b2   b3   c1   c2   c3}
+    # Define constant INDICES
+    VAL = { 'a' => 0, 'b' => 3, 'c' => 6 }
+    INDICES = Hash.new { |h, k| h[k] = MOVES.find_index(k) }
+
     def self.name_to_index( name )# Receives "b2" and returns 4
-      name =~ /([a-cA-C])(\d)/
-      y = $1.ord - 'a'.ord
-      x = $2.to_i - 1
-      x + y * 3
+      INDICES[name]
     end
     
     def self.index_to_name( index ) # Receives the index, like 4 and returns "b2"
-      if index >= 6
-        "c" + (index - 5).to_s  #  0     1    2    3    4    5    6    7    8
-      elsif index >= 3          #  a1    a2   a3   b1   b2   b3   c1   c2   c3
-        "b" + (index - 2).to_s  # [ " ", " ", " ", " ", "X", " ", " ", " ", "O"]
-      else
-        "a" + (index + 1).to_s
-      end
+      MOVES[index]
     end
     
     def initialize( squares )
@@ -115,7 +111,7 @@ end
 module TicTacToe
   class Player
     def initialize( mark )
-      @mark = mark
+      @mark = mark # "X" or "O" or " "
     end
     
     attr_reader :mark
@@ -141,7 +137,7 @@ module TicTacToe
         print "Invalid move.  Try again.  "
         move = $stdin.gets
       end
-      move
+      move.chomp
     end
     
     def finish( final_board )
@@ -240,7 +236,6 @@ end
 
 if __FILE__ == $0
   if ARGV.size > 0 and ARGV[0] == "-d"
-    ARGV.shift
     game = TicTacToe::Game.new TicTacToe::HumanPlayer,
                    TicTacToe::DumbPlayer
   else
