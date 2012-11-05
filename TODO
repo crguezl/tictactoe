@@ -1,0 +1,5 @@
+- create a file structure suitable for a gem
+- separate players in different files and use them like plugins
+- write code to make two arbitrary players compete
+- write a minimax player
+- tests
