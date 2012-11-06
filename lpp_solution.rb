@@ -29,7 +29,6 @@ module TicTacToe
     
     MOVES = %w{a1    a2   a3   b1   b2   b3   c1   c2   c3}
     # Define constant INDICES
-    VAL = { 'a' => 0, 'b' => 3, 'c' => 6 }
     INDICES = Hash.new { |h, k| h[k] = MOVES.find_index(k) }
 
     def self.name_to_index( name )# Receives "b2" and returns 4
